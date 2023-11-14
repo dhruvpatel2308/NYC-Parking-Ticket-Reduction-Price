@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import time
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
@@ -14,10 +11,24 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.chrome.service import Service
 
-
-# In[23]:
-
+op = webdriver.ChromeOptions()
+op.add_argument('--no-sandbox')
+op.add_argument('--verbose')
+op.add_argument("--disable-notifications")
+op.add_experimental_option("prefs", {
+  "download.default_directory": "C:\\Users\\gazal\\Downloads\\",
+  "download.prompt_for_download": False,
+  "download.directory_upgrade": True,
+  "safebrowsing.enabled": True})
+op.add_argument('--disable-gpu')
+op.add_argument('--disable-software-rasterizer')
+ser = Service(executable_path='./chromedriver.exe')
+opt=webdriver.ChromeOptions()
+# prefs={"download.default_directory":r"C:\Users\gazal\Downloads"}
+#options.add_experimental_option("prefs",prefs)
 
 driver = webdriver.Chrome()
 
@@ -37,7 +48,6 @@ driver.find_element(By.ID,"column-header-issue_date-4-dropdown-picklist-0").clic
 time.sleep(4)
 
 #########################################################################################
-
 
 #selecting desired start date and time from calender
 
@@ -65,8 +75,6 @@ while True:
     else:
         driver.find_element(By.XPATH," //*[@id='ast-node-47-13']/div/div[2]/div[2]/div/div/button[2]").click()
         #time.sleep(4)
-        
-
 
 #selecting desired date
 desired_date = 1
@@ -91,13 +99,12 @@ for date in date_text:
         #print(date_index)
         dates[i].click()
         break
-        
     else:
         i=i+1
 
         
 time.sleep(4)
-
+time.sleep(4)
 
 #on the filter pane clicking on the start date input box again to select the time
 driver.find_element(By.XPATH,"//*[@id='ast-node-47-13']/div/div[1]/div/input").click()
@@ -113,9 +120,6 @@ time.sleep(4)
 
 # getting today's date
 today = datetime.today().date()
-
-
-
 
 #on the filter pane clicking on the end date input box
 driver.find_element(By.XPATH,"//*[@id='ast-node-48-9']/div/div[1]/div/input").click()
@@ -140,8 +144,6 @@ while True:
         driver.find_element(By.XPATH,"//*[@id='ast-node-48-9']/div/div[2]/div[2]/div/div/button[2]").click()
         #time.sleep(4)
         
-
-
 #selecting desired date
 today_date = int(today.strftime("%d"))
 dates = driver.find_elements(By.XPATH,"//*[contains(@class,'react-datepicker__day react-datepicker__day--')]")
@@ -155,7 +157,6 @@ for every_date in dates:
     i=i+1
     date_text.append(date_element_text)
 #print(date_text)
-
 
 #selecting the index of the date_text to particulary fetch anc click on that element
 i=0
@@ -172,8 +173,6 @@ for date in date_text:
         
 time.sleep(4)
 
-
-
 #on the filter pane clicking on the end date input box again to select the time
 driver.find_element(By.XPATH,"//*[@id='ast-node-48-9']/div/div[1]/div/input").click()
 time.sleep(4)
@@ -188,15 +187,39 @@ time.sleep(4)
 driver.find_element(By.ID,"apply-button").click()
 
 #clicking on issue date filtering menu
-driver.find_element(By.XPATH,"//*[@id='column-header-issue_date-4']/div[1]/button").click()
+#driver.find_element(By.XPATH,"//*[@id='column-header-issue_date-4']/div[1]/button").click()
+time.sleep(4)
+#clicking on the export button
+driver.find_element(By.XPATH,"//*[@id='grid-ribbon-export-button']/forge-button/button").click()
 time.sleep(4)
 
 #sorting the data in ascending order
 driver.find_element(By.ID,"column-header-issue_date-4-dropdown-picklist-1").click()
 time.sleep(4)
 
+# to download file
+#driver.find_element(By.XPATH,"//*[@id='export-button-group']/forge-button-toggle[1]").click()
+#time.sleep(4)
+
+#click on the dropdown button
+#selectElement = driver.find_element(By.XPATH,"/html/body/forge-dialog/div/forge-scaffold/div[2]/div[3]/forge-select//div")
+
+#selectElement.select_by_visible_text("CSV for Excel")
+#time.sleep(4)
+
+# click on the download button
+driver.find_element(By.XPATH,"/html/body/forge-dialog/div/forge-scaffold/div[3]/forge-toolbar/forge-button[2]/button").click()
+   
+# to download csv file
+#driver.find_element(By.ID,"//*[@id='grid-ribbon-export-button']/forge-button/button/span").click()
+#time.sleep(4)
+
+#or to download csv for excel file
+#driver.find_element(By.ID,"//*[@id='grid-ribbon-export-button']/forge-button/button/span").click()
+#time.sleep(4)
 
 
+# to download api endpoint
 
 
 #selectt = Select()
@@ -211,11 +234,3 @@ time.sleep(4)
 #driver.find_element(By.XPATH,"//button[normalize-space()='Export']//span[@class='forge-button__ripple']").click()
 #driver.find_element(By.XPATH,"//html//body//forge-dialog//div//forge-scaffold//div[3]//forge-toolbar//forge-button[2]//button//span").click()
 #time.sleep(4)
-
-
-
-# In[ ]:
-
-
-
-
