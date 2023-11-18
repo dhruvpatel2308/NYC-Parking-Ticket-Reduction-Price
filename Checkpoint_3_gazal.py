@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import time
+import os
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -30,7 +31,7 @@ opt=webdriver.ChromeOptions()
 # prefs={"download.default_directory":r"C:\Users\gazal\Downloads"}
 #options.add_experimental_option("prefs",prefs)
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(service=ser, options=opt)
 
 #directing to the website to fetch data
 driver.get("https://data.cityofnewyork.us/City-Government/Parking-Violations-Issued-Fiscal-Year-2023/pvqr-7yc4")
@@ -101,8 +102,7 @@ for date in date_text:
         break
     else:
         i=i+1
-
-        
+      
 time.sleep(4)
 time.sleep(4)
 
@@ -188,14 +188,17 @@ driver.find_element(By.ID,"apply-button").click()
 
 #clicking on issue date filtering menu
 #driver.find_element(By.XPATH,"//*[@id='column-header-issue_date-4']/div[1]/button").click()
+#time.sleep(4)
+
+#sorting the data in ascending order
+#driver.find_element(By.ID,"column-header-issue_date-4-dropdown-picklist-1").click()
 time.sleep(4)
+
 #clicking on the export button
 driver.find_element(By.XPATH,"//*[@id='grid-ribbon-export-button']/forge-button/button").click()
 time.sleep(4)
 
-#sorting the data in ascending order
-driver.find_element(By.ID,"column-header-issue_date-4-dropdown-picklist-1").click()
-time.sleep(4)
+
 
 # to download file
 #driver.find_element(By.XPATH,"//*[@id='export-button-group']/forge-button-toggle[1]").click()
