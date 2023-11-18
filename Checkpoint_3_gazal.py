@@ -34,7 +34,8 @@ opt=webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=ser, options=opt)
 
 #directing to the website to fetch data
-driver.get("https://data.cityofnewyork.us/City-Government/Parking-Violations-Issued-Fiscal-Year-2023/pvqr-7yc4")
+#driver.get("https://data.cityofnewyork.us/City-Government/Parking-Violations-Issued-Fiscal-Year-2023/pvqr-7yc4")
+driver.get("https://data.cityofnewyork.us/City-Government/Open-Parking-and-Camera-Violations/nc67-uf89")
 
 #clicking on view data
 driver.find_element(By.LINK_TEXT,'View Data').click()
@@ -58,7 +59,7 @@ time.sleep(4)
 
 #selecting start month year
 month_year_format = "%B %Y"
-desired_month_year = "January 2022"
+desired_month_year = "January 2021"
 desired_month_year = datetime.strptime(desired_month_year,month_year_format)
 
 while True:
